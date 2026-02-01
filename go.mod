@@ -3,7 +3,9 @@ module github.com/Georgi-Progger/task-tracker-common
 go 1.24.0
 
 require (
+	github.com/caarlos0/env/v11 v11.3.1
 	github.com/jmoiron/sqlx v1.4.0
+	github.com/joho/godotenv v1.5.1
 	github.com/redis/go-redis/v9 v9.17.2
 	github.com/rs/zerolog v1.34.0
 	github.com/segmentio/kafka-go v0.4.50
