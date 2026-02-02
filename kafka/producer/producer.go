@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	kafkain "github.com/Georgi-Progger/task-tracker-common/kafka"
 	"github.com/Georgi-Progger/task-tracker-common/logger"
+
 	"github.com/segmentio/kafka-go"
 )
 
@@ -13,13 +15,12 @@ type producer struct {
 	logger logger.Logger
 }
 
-func NewProducer(dsn, topic string, logger logger.Logger) producer {
-	writer := kafka.NewWriter(kafka.WriterConfig{
-		Brokers: []string{dsn},
-		Topic:   topic,
-	})
-	return producer{
-		writer: writer,
+func NewProducer(dsn, topic string, logger logger.Logger) kafkain.Producer {
+	return &producer{
+		writer: kafka.NewWriter(kafka.WriterConfig{
+			Brokers: []string{dsn},
+			Topic:   topic,
+		}),
 		logger: logger,
 	}
 }
@@ -38,4 +39,8 @@ func (p *producer) Send(ctx context.Context, value []byte) error {
 
 	p.logger.Info(fmt.Sprintf("Produced message: %s", value))
 	return nil
+}
+
+func (p *producer) Close() error {
+	return p.writer.Close()
 }
