@@ -21,3 +21,10 @@ type KafkaConfig interface {
 type JWTConfig interface {
 	GetJWTSecret() string
 }
+
+type EmailConfig interface {
+	GetEmailHost() string
+	GetEmailLogin() string
+	GetEmailPassword() string
+	GetEmailPort() int
+}

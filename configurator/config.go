@@ -13,6 +13,7 @@ type Config struct {
 	KafkaConfig
 	RedisConfig
 	JWTConfig
+	EmailConfig
 }
 
 func LoadConfig() (Config, error) {
@@ -45,12 +46,18 @@ func LoadConfig() (Config, error) {
 		return Config{}, fmt.Errorf("error create jwt config: %w", err)
 	}
 
+	email, err := env.NewEmailConfig()
+	if err != nil {
+		return Config{}, fmt.Errorf("error create jwt config: %w", err)
+	}
+
 	cfg := Config{
 		DbConfig:    db,
 		AppConfig:   app,
 		KafkaConfig: kafka,
 		RedisConfig: redis,
 		JWTConfig:   jwt,
+		EmailConfig: email,
 	}
 	return cfg, nil
 }
