@@ -12,8 +12,10 @@ type AppConfig interface {
 	GetPort() string
 }
 
-type BrokerConfig interface {
+type KafkaConfig interface {
 	GetBrokers() []string
+	GetEmailTopic() string
+	GetEventsTopic() string
 }
 
 type JWTConfig interface {

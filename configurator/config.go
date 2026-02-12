@@ -10,7 +10,7 @@ import (
 type Config struct {
 	DbConfig
 	AppConfig
-	BrokerConfig
+	KafkaConfig
 	RedisConfig
 	JWTConfig
 }
@@ -22,35 +22,35 @@ func LoadConfig() (Config, error) {
 
 	db, err := env.NewDbConfig()
 	if err != nil {
-		return Config{}, fmt.Errorf("error create config: %w", err)
+		return Config{}, fmt.Errorf("error create db config: %w", err)
 	}
 
 	app, err := env.NewAppConfig()
 	if err != nil {
-		return Config{}, fmt.Errorf("error create config: %w", err)
+		return Config{}, fmt.Errorf("error create app config: %w", err)
 	}
 
-	broker, err := env.NewBrokerConfig()
+	kafka, err := env.NewKafkaConfig()
 	if err != nil {
-		return Config{}, fmt.Errorf("error create config: %w", err)
+		return Config{}, fmt.Errorf("error create kafka config: %w", err)
 	}
 
 	redis, err := env.NewRedisConfig()
 	if err != nil {
-		return Config{}, fmt.Errorf("error create config: %w", err)
+		return Config{}, fmt.Errorf("error create redis config: %w", err)
 	}
 
 	jwt, err := env.NewJWTConfig()
 	if err != nil {
-		return Config{}, fmt.Errorf("error create config: %w", err)
+		return Config{}, fmt.Errorf("error create jwt config: %w", err)
 	}
 
 	cfg := Config{
-		DbConfig:     db,
-		AppConfig:    app,
-		BrokerConfig: broker,
-		RedisConfig:  redis,
-		JWTConfig:    jwt,
+		DbConfig:    db,
+		AppConfig:   app,
+		KafkaConfig: kafka,
+		RedisConfig: redis,
+		JWTConfig:   jwt,
 	}
 	return cfg, nil
 }
