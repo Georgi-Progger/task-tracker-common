@@ -15,10 +15,10 @@ type consumer struct {
 	logger logger.Logger
 }
 
-func NewConsumer(dsn, topic string, logger logger.Logger) kafkain.Consumer {
+func NewConsumer(dsn []string, topic string, logger logger.Logger) kafkain.Consumer {
 	return &consumer{
 		reader: kafka.NewReader(kafka.ReaderConfig{
-			Brokers: []string{dsn},
+			Brokers: dsn,
 			Topic:   topic,
 			GroupID: "email-senders",
 		}),

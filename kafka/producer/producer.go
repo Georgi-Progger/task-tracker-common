@@ -15,10 +15,10 @@ type producer struct {
 	logger logger.Logger
 }
 
-func NewProducer(dsn, topic string, logger logger.Logger) kafkain.Producer {
+func NewProducer(dsn []string, topic string, logger logger.Logger) kafkain.Producer {
 	return &producer{
 		writer: kafka.NewWriter(kafka.WriterConfig{
-			Brokers: []string{dsn},
+			Brokers: dsn,
 			Topic:   topic,
 		}),
 		logger: logger,

@@ -13,5 +13,9 @@ type AppConfig interface {
 }
 
 type BrokerConfig interface {
-	GetUrlBroker() string
+	GetBrokers() []string
+}
+
+type JWTConfig interface {
+	GetJWTSecret() string
 }

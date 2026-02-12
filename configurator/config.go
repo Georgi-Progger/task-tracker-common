@@ -12,6 +12,7 @@ type Config struct {
 	AppConfig
 	BrokerConfig
 	RedisConfig
+	JWTConfig
 }
 
 func LoadConfig() (Config, error) {
@@ -39,11 +40,17 @@ func LoadConfig() (Config, error) {
 		return Config{}, fmt.Errorf("error create config: %w", err)
 	}
 
+	jwt, err := env.NewJWTConfig()
+	if err != nil {
+		return Config{}, fmt.Errorf("error create config: %w", err)
+	}
+
 	cfg := Config{
 		DbConfig:     db,
 		AppConfig:    app,
 		BrokerConfig: broker,
 		RedisConfig:  redis,
+		JWTConfig:    jwt,
 	}
 	return cfg, nil
 }

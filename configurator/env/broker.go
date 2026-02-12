@@ -1,14 +1,11 @@
 package env
 
 import (
-	"fmt"
-
 	"github.com/caarlos0/env/v11"
 )
 
 type brokerEnvConfig struct {
-	BrokerPort string `env:"BROKER_APP_PORT,required"`
-	BrokerHost string `env:"BROKER_APP_HOST,required"`
+	Brokers []string `env:"KAFKA_BROKERS,required"`
 }
 
 type brokerConfig struct {
@@ -24,6 +21,6 @@ func NewBrokerConfig() (*brokerConfig, error) {
 	return &brokerConfig{broker: broker}, nil
 }
 
-func (cfg *brokerConfig) GetUrlBroker() string {
-	return fmt.Sprintf("%s:%s", cfg.broker.BrokerHost, cfg.broker.BrokerPort)
+func (cfg *brokerConfig) GetBrokers() []string {
+	return cfg.broker.Brokers
 }
